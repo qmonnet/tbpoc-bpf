@@ -61,9 +61,18 @@ Then attach the program to this qdisc, for example on the `ingress` interface:
 
     # tc filter add dev eth0 ingress bpf da obj tokenbucket.o
 
-The rate limiter should now run on interface `eth0`.
+The rate limiter should now be attached to interface `eth0`. It tries to
+process packets. But the application will not work yet: we first have to
+initialize the maps. To this end, you can compile and run the program in file
+`init_maps.c`:
 
-There is no “simulation” setup in this repository as for the [port
+    $ gcc -o init_maps init_maps.c
+    # ./init_maps
+
+Once the maps are initialized (well, one of them starts empty actually), the
+token bucket should correctly work.
+
+Note that there is no “simulation” setup in this repository as for the [port
 knocking](https://github.com/qmonnet/pkpoc-bpf) example enabling to configure
 several namespaces with bcc and to run the token bucket in one of these, but if
 you ever need it, it should not be hard to adapt.
