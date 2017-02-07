@@ -54,7 +54,7 @@ struct bpf_elf_map __section("maps") xfsm_table = {
 /* This is totally application dependent */
 #define TB_TOKEN_NB 5ULL
 #define TB_TOKEN_REGEN 1ULL
-#define R (1/TB_TOKEN_REGEN)*1000000000 // ns^-1
+#define R 1000000000/TB_TOKEN_REGEN // ns^-1
 #define B (TB_TOKEN_NB-1)*R // ns
 
 enum states {
